@@ -1,5 +1,8 @@
 name: Publish Widget
-on: workflow_dispatch
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "*/15 * * * *"
 env:
   WIDGET_VAL_URL: ${{ secrets.WIDGET_VAL_URL }}
 jobs:

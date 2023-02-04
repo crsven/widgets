@@ -1,5 +1,7 @@
 name: Publish Widget
 on: workflow_dispatch
+env:
+  WIDGET_VAL_URL: ${{ secrets.WIDGET_VAL_URL }}
 jobs:
   publish:
     runs-on: ubuntu-latest
@@ -7,8 +9,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
       - name: Generate Widget
-        run: ./scripts/generate_widget
+        run: node ./scripts/generate_widget.js
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9.1.1
         with:
-          add: 'widget.json'
+          add: './output/widget.json'

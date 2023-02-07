@@ -2,8 +2,9 @@ name: Publish Widget
 on:
   workflow_dispatch:
   schedule:
-    - cron: "*/15 * * * *"
+    - cron: "0 1,12 * * *"
 env:
+  ANIMAL_WIDGET_VAL_URL: ${{ secrets.ANIMAL_WIDGET_VAL_URL }}
   WIDGET_VAL_URL: ${{ secrets.WIDGET_VAL_URL }}
 jobs:
   publish:
@@ -17,9 +18,11 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-      - name: Generate Widget
+      - name: Generate Hello World Widget
         run: node ./scripts/generate_widget.js
+      - name: Generate Animal Widget
+        run: node ./scripts/generate_animal_widget.js
       - name: Add & Commit
         uses: EndBug/add-and-commit@v9.1.1
         with:
-          add: './output/widget.json'
+          add: './output/'
